@@ -1,11 +1,24 @@
 {
-  "name": "blocipedia",
-  "version": "1.0.0",
-  "description": "A wikipedia-like application",
-  "main": "src/server.js",
-  "scripts": {
-    "test": "export NODE_ENV=test&& jasmine"
-  },
-  "author": "",
-  "license": "ISC"
+    "name": "blocipedia",
+    "version": "1.0.0",
+    "description": "A wikipedia-like application",
+    "main": "src/server.js",
+    "scripts": {
+        "test": "export NODE_ENV=test&& jasmine",
+        "start": "node src/server.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "jasmine": "^3.0.0",
+        "request": "^2.83.0"
+    },
+    "dependencies": {
+        "dotenv": "^5.0.0",
+        "express": "^4.16.2",
+        "morgan": "^1.9.1",
+        "pg": "^7.4.1",
+        "pg-hstore": "^2.3.2",
+        "sequelize": "^4.32.6"
+    }
 }
