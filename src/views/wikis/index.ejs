@@ -9,11 +9,32 @@
 
             <h1>Wikis</h1>
 
-            <% if(currentUser) { %>
-
-            <a href="/wikis/new" class="btn btn-success">New Wiki</a>
+            <% if(!currentUser) { %>
+            <p>
+                <a href="/users/signin">Sign In</a> or
+                <a href="/users/signup">Sign Up</a> to create a Wiki
+            </p>
+            <% } else if((currentUser && currentUser.role == 1) || (currentUser
+            && currentUser.role == 2)){ %>
+            <a href="/wikis/new" class="btn btn-success">New Public Wiki</a>
+            <a href="/wikis/newPrivate" class="btn btn-success"
+                >New Private Wiki</a
+            >
+            <h2>Private Wikis</h2>
+            <% } else { %>
+            <a href="/wikis/new" class="btn btn-success">New Public Wiki</a>
             <% } %>
 
+            <ul class="list-group">
+                <% wikis.forEach((wiki) => { if(currentUser && currentUser.role
+                != 0 && wiki.private == true){ %>
+                <li class="list-group-item">
+                    <a href="/wikis/<%= wiki.id %>"> <%= wiki.title %> </a>
+                </li>
+                <% }}) %>
+            </ul>
+
+            <h2>Public Wikis</h2>
             <ul class="list-group">
                 <% wikis.forEach((wiki) => { %>
                 <li class="list-group-item">
