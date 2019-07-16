@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include ../static/partials/head.ejs %>
+    </head>
+    <body>
+        <% include ../static/partials/navbar.ejs %>
+
+        <main class="container">
+            <% include ../static/partials/messages.ejs %>
+
+            <h1>Click the button below to upgrade to a premium account.</h1>
+            <h4>One-time payment of $14.99</h4>
+            <p>No commitment - you can downgrade at any time.</p>
+
+            <% if(currentUser){ %>
+            <form action="/users/<%= currentUser.id %>/upgrade" method="POST">
+                <script
+                    src="https://checkout.stripe.com/checkout.js"
+                    class="stripe-button"
+                    data-amount="1499"
+                    data-key="pk_test_C8k9hAqZqe2l5uFGSREFQUV100vhRJTATw"
+                    data-name="Blocpedia"
+                    data-description="Blocipedia premium upgrade"
+                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                    data-locale="auto"
+                ></script>
+            </form>
+            <% } %>
+        </main>
+
+        <% include ../static/partials/baseScripts.ejs %>
+    </body>
+</html>

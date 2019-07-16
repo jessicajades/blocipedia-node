@@ -25,6 +25,11 @@
                 </li>
                 <% if(currentUser) { %>
                 <li class="nav-item">
+                    <a class="nav-link" href="/users/<%= currentUser.id %>"
+                        >Account</a
+                    >
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/users/signout">Sign out</a>
                 </li>
                 <% } else { %>

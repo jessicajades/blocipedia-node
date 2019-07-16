@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include ../static/partials/head.ejs %>
+    </head>
+    <body>
+        <% include ../static/partials/navbar.ejs %>
+
+        <main class="container">
+            <% include ../static/partials/messages.ejs %>
+
+            <h1>Hello, <%= currentUser.username %>!</h1>
+
+            <% if (currentUser.role == 0 || currentUser.role == null) { %>
+            <p>
+                You have a <strong>Standard Account</strong>. Click the button
+                below for access to private wikis.
+            </p>
+            <a
+                href="/users/<%= currentUser.id %>/upgradeForm"
+                class="btn btn-primary btn-lg"
+                >Upgrade</a
+            >
+            <% } if (currentUser.role == 1) { %>
+            <p>
+                You have a <strong>Premium Account</strong>. Downgrade at any
+                time by clicking below.
+            </p>
+            <a
+                href="/users/<%= currentUser.id %>/downgradeForm"
+                class="btn btn-primary btn-lg"
+                >Downgrade</a
+            >
+            <% } if (currentUser.role == 2) { %>
+            <p>You are an <strong>Administrator</strong>.</p>
+            <% } %>
+        </main>
+        <% include ../static/partials/baseScripts.ejs %>
+    </body>
+</html>
