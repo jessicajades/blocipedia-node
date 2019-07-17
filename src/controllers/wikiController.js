@@ -21,8 +21,8 @@ module.exports = {
             res.redirect("/wikis");
         }
     },
-    newPrivate(req, res, next) {
-        res.render("wikis/new");
+    newprivate(req, res, next) {
+        res.render("/wikis/newprivate");
     },
     create(req, res, next) {
         const authorized = new Authorizer(req.user).create();
