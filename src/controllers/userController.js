@@ -1,4 +1,5 @@
 const userQueries = require("../db/queries.users.js");
+const wikiQueries = require("../db/queries.wikis.js");
 const passport = require("passport");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -100,7 +101,6 @@ module.exports = {
                     });
                 })
                 .then(charge => {
-                    console.log("charge", charge);
                     if (charge) {
                         req.flash(
                             "notice",
@@ -125,6 +125,7 @@ module.exports = {
     downgrade(req, res, next) {
         userQueries.downgradeUser(req.params.id, (err, result) => {
             if (result) {
+                wikiQueries.downgrade(result.id);
                 req.flash(
                     "notice",
                     "You have been successfully downgraded to a standard member"
@@ -132,7 +133,7 @@ module.exports = {
                 res.redirect("/");
             } else {
                 req.flash("notice", "Error - downgrade unsuccessful");
-                res.redirect("/users/show", { user });
+                res.redirect("/users/show", { result });
             }
         });
     }

@@ -25,12 +25,27 @@ module.exports = {
                 callback(err);
             });
     },
+    addPrivateWiki(newWiki, callback) {
+        return Wiki.create({
+            title: newWiki.title,
+            body: newWiki.body,
+            private: newWiki.private,
+            userId: newWiki.userId
+        })
+            .then(wiki => {
+                callback(null, wiki);
+            })
+            .catch(err => {
+                callback(err);
+            });
+    },
     getWiki(id, callback) {
         return Wiki.findById(id)
             .then(wiki => {
                 callback(null, wiki);
             })
             .catch(err => {
+                console.log(err);
                 callback(err);
             });
     },
@@ -61,5 +76,44 @@ module.exports = {
                     callback(err);
                 });
         });
+    },
+    downgrade(id, callback) {
+        return Wiki.findAll({
+            where: { userId: id }
+        })
+            .then(wikis => {
+                wikis.forEach(wiki => {
+                    wiki.update({
+                        private: false
+                    });
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    },
+    changeToPublic(id, callback) {
+        return Wiki.findById(id)
+            .then(wiki => {
+                wiki.update({
+                    private: false
+                });
+                callback(null, wiki);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    },
+    changeToPrivate(id, callback) {
+        return Wiki.findById(id)
+            .then(wiki => {
+                wiki.update({
+                    private: true
+                });
+                callback(null, wiki);
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 };

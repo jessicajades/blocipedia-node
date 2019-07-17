@@ -20,7 +20,27 @@
             >
                 <button type="submit" class="btn btn-danger">Delete</button>
             </form>
-            <% }%>
+
+            <% } %> <% if(currentUser && currentUser.role !== 0) {
+            if(wiki.private == true) { %>
+            <p>Click below to make this wiki public</p>
+            <form
+                style="display:initial"
+                action="/wikis/<%= wiki.id %>/makePublic"
+                method="post"
+            >
+                <button type="submit" class="btn btn-info">Make Public</button>
+            </form>
+            <% } else if(wiki.private == false) { %>
+            <p>Click below to make this wiki private</p>
+            <form
+                style="display:initial"
+                action="/wikis/<%= wiki.id %>/makePrivate"
+                method="post"
+            >
+                <button type="submit" class="btn btn-info">Make Private</button>
+            </form>
+            <% } } %>
 
             <p><%= wiki.body %></p>
         </main>
