@@ -21,9 +21,6 @@ module.exports = {
             res.redirect("/wikis");
         }
     },
-    newprivate(req, res, next) {
-        res.render("/wikis/newprivate");
-    },
     create(req, res, next) {
         const authorized = new Authorizer(req.user).create();
 
@@ -88,5 +85,8 @@ module.exports = {
                 res.redirect(`/wikis/${wiki.id}`);
             }
         });
+    },
+    newPrivate(req, res, next) {
+        res.render("wikis/newPrivate");
     }
 };
