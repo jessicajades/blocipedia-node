@@ -23,7 +23,7 @@
 
             <% } %> <% if(currentUser && currentUser.role !== 0) {
             if(wiki.private == true) { %>
-            <p>Click below to make this wiki public</p>
+            <br /><br />
             <form
                 style="display:initial"
                 action="/wikis/<%= wiki.id %>/makePublic"
@@ -31,8 +31,12 @@
             >
                 <button type="submit" class="btn btn-info">Make Public</button>
             </form>
+            <a
+                class="btn btn-info"
+                href="/wikis/<%= wiki.id %>/collaborators/edit"
+                >Edit Collaborators</a
+            >
             <% } else if(wiki.private == false) { %>
-            <p>Click below to make this wiki private</p>
             <form
                 style="display:initial"
                 action="/wikis/<%= wiki.id %>/makePrivate"

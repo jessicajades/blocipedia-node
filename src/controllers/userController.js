@@ -1,5 +1,6 @@
 const userQueries = require("../db/queries.users.js");
 const wikiQueries = require("../db/queries.wikis.js");
+const collaboratorQueries = require("../db/queries.collaborators.js");
 const passport = require("passport");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -134,6 +135,16 @@ module.exports = {
             } else {
                 req.flash("notice", "Error - downgrade unsuccessful");
                 res.redirect("/users/show", { result });
+            }
+        });
+    },
+
+    showCollabs(req, res, next) {
+        userQueries.getUserCollabs(req.user.id, (err, result) => {
+            if (err || result == null) {
+                res.redirect(404, "/");
+            } else {
+                res.render("users/collaborations", { ...result });
             }
         });
     }
